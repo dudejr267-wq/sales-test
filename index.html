@@ -172,6 +172,9 @@ button.btn { cursor: pointer; }
 .viewer[hidden] { display: none; }
 .v-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; }
 .v-title { font-size: 14px; font-weight: 700; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.v-actions { display: flex; align-items: center; gap: 8px; flex: none; }
+.v-pdf { background: #F1F3F7; color: #0F1218; text-decoration: none; font-size: 13px; font-weight: 700; padding: 9px 12px; border-radius: 99px; }
+.btn.pdf { display: block; background: var(--card); color: var(--ink); border: 1px solid var(--line); font-weight: 500; font-size: 15px; padding: 13px; text-decoration: none; }
 .v-x { background: #262B36; border: none; color: #F1F3F7; width: 38px; height: 38px; border-radius: 50%; font-size: 16px; flex: none; }
 .v-scroll { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; display: flex; justify-content: center; align-items: flex-start; padding: 0 8px; }
 .v-scroll img { width: 100%; max-width: 720px; height: auto; background: #fff; border-radius: 4px; }
@@ -195,7 +198,10 @@ button.btn { cursor: pointer; }
 <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="v-title" hidden>
   <div class="v-bar">
     <span class="v-title" id="v-title"></span>
-    <button class="v-x" id="v-close" aria-label="카탈로그 닫기">✕</button>
+    <div class="v-actions">
+      <a class="v-pdf pdf-link" id="v-pdf">PDF 저장</a>
+      <button class="v-x" id="v-close" aria-label="카탈로그 닫기">✕</button>
+    </div>
   </div>
   <div class="v-scroll" id="v-scroll"><img id="v-img" alt="" width="1100" height="1548"></div>
   <div class="v-nav">
@@ -213,6 +219,9 @@ button.btn { cursor: pointer; }
 const CATALOG_NAME = "누구나기프트 10월호 카탈로그";
 const CATALOG_PAGES = 52;
 const CATALOG_TOC = 2;   // 목차 쪽
+const CATALOG_PDF = "catalog.pdf";                       // 폰 저장용 가벼운 PDF (원본 76MB → 9.7MB)
+const CATALOG_PDF_NAME = "누구나기프트_10월호_카탈로그.pdf";
+const CATALOG_PDF_SIZE = "9.7MB";
 const PHONE = "031-305-4554";
 const pageSrc = n => `catalog/c-${String(n).padStart(2, "0")}.jpg`;
 
@@ -476,6 +485,7 @@ function promoHTML() {
     <h4>고객님 선물, 고민될 땐 누구나기프트</h4>
     <p>보험 지점 고객 선물부터 명절·행사 답례품, 단체 선물까지. 1박스부터 지점으로 바로 보내드려요.</p>
     <button class="btn catalog" data-page="${CATALOG_TOC}">이번 달 선물 카탈로그 보기</button>
+    <a class="btn pdf pdf-link">📥 카탈로그 PDF 저장 (${CATALOG_PDF_SIZE})</a>
     <p>주문·문의 <span class="tel">${PHONE}</span></p>
   </section>`;
 }
@@ -534,6 +544,17 @@ vScroll.addEventListener("touchend", e => {
 });
 document.getElementById("v-title").textContent = CATALOG_NAME;
 document.getElementById("v-tel").textContent = PHONE;
+
+// PDF 저장 링크: 주소·파일명 채우고, 누르면 기록
+document.addEventListener("click", e => {
+  const a = e.target.closest(".pdf-link");
+  if (a) log("PDF 저장", { page: V.hidden ? "" : vPage });
+});
+function fillPdfLinks() {
+  document.querySelectorAll(".pdf-link").forEach(a => { a.href = CATALOG_PDF; a.download = CATALOG_PDF_NAME; });
+}
+new MutationObserver(fillPdfLinks).observe(app, { childList: true });
+fillPdfLinks();
 
 renderIntro();
 log("입장");
