@@ -70,6 +70,7 @@ p { margin: 0; }
 .chips span { font-size: 13px; padding: 4px 11px; border-radius: 99px; background: var(--bg); color: var(--muted); }
 .field { display: flex; flex-direction: column; gap: 6px; }
 .field label { font-size: 13px; color: var(--muted); }
+.field .note { font-size: 12px; color: var(--muted); margin: 0; }
 .field input { font: inherit; padding: 13px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
 .btn {
   display: block; width: 100%; text-align: center; text-decoration: none; padding: 16px; border-radius: 14px;
@@ -217,7 +218,7 @@ const pageSrc = n => `catalog/c-${String(n).padStart(2, "0")}.jpg`;
 
 // ── 방문 기록 (이름 없이) → 구글 시트 "영업스타일테스트 로그" ──
 // LOG_URL이 비어 있으면 아무것도 보내지 않아요 (미리보기용)
-const LOG_URL = "https://script.google.com/macros/s/AKfycbyRLWrya231PRXCxbku1vG6jililfCAjooFO9VdbSg2DwSP6joAuAdVUtW6_xwpGn_P/exec";
+const LOG_URL = "https://script.google.com/macros/s/AKfycbzhUawjmWZCvhh_PpcTb_y0LWfozSH2TLvFjwWnph7Ar_B4QI6fE_5XZ-DZqyU-2ZPg/exec";
 const VID = Math.random().toString(36).slice(2, 8);
 const UA = navigator.userAgent;
 const DEV = /iPhone|iPad|Android|Mobile/i.test(UA) ? "모바일" : "PC";
@@ -226,7 +227,7 @@ const SRC = new URLSearchParams(location.search).get("from") || "";
 const loggedPages = new Set();
 function log(act, extra = {}) {
   if (!LOG_URL) return;
-  const body = JSON.stringify({ vid: VID, act, dev: DEV, kakao: KAKAO, src: SRC, ...extra });
+  const body = JSON.stringify({ vid: VID, act, dev: DEV, kakao: KAKAO, src: SRC, name: state.name || "", ...extra });
   try { fetch(LOG_URL, { method: "POST", mode: "no-cors", body, keepalive: true }); } catch (e) {}
 }
 
@@ -312,6 +313,7 @@ function renderIntro() {
       <div class="field">
         <label for="nm">이름 (결과 화면에 나와요, 안 써도 돼요)</label>
         <input id="nm" maxlength="10" placeholder="예: 김보험" value="${esc(state.name)}">
+        <p class="note">이름을 쓰시면 참여 기록과 함께 누구나기프트에 저장돼요.</p>
       </div>
       <button class="btn" id="start">테스트 시작하기</button>
     </section>
