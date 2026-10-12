@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>나는 어떤 영업 스타일일까?</title>
+<meta name="description" content="영업 현장 12가지 상황으로 알아보는 나의 영업 유형. 찰떡 동료, 상극 동료까지! 2분이면 끝나요.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="나는 어떤 영업 스타일일까?">
+<meta property="og:description" content="영업 현장 12가지 상황으로 알아보는 나의 영업 유형. 찰떡 동료, 상극 동료까지! 2분이면 끝나요.">
+<meta property="og:image" content="https://dudejr267-wq.github.io/sales-test/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://dudejr267-wq.github.io/sales-test/">
+<meta name="twitter:card" content="summary_large_image">
+<style>[hidden]{display:none!important} body{margin:0} img{max-width:100%}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* 레이아웃: 휴대폰 세로 한 손 화면. 유형마다 고유 색(--tc)이 결과 화면 전체를 물들임 */
+:root {
+  --bg: #EEF1F6;
+  --card: #FFFFFF;
+  --ink: #1A1F2B;
+  --muted: #646C7C;
+  --line: #DCE1EA;
+  --accent: #3E5BD8;      /* 진행·선택 */
+  --good: #1F8A5B;        /* 찰떡 */
+  --bad: #D2493A;         /* 상극 */
+  --gift: #C2410C;
+  --f-display: "Black Han Sans", "Apple SD Gothic Neo", sans-serif;
+  --f-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --tc: #3E5BD8;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11141B; --card: #1B202B; --ink: #EDF0F6; --muted: #9AA2B2; --line: #2D3442;
+    --accent: #8DA2FF; --good: #4CC48C; --bad: #FF7A6B; --gift: #FB923C; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11141B; --card: #1B202B; --ink: #EDF0F6; --muted: #9AA2B2; --line: #2D3442;
+  --accent: #8DA2FF; --good: #4CC48C; --bad: #FF7A6B; --gift: #FB923C; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--f-body);
+  font-size: 16px; line-height: 1.6; word-break: keep-all;
+  padding-inline: 16px; padding-block: 20px 40px;
+}
+.wrap { max-width: 460px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.card { background: var(--card); border-radius: 20px; padding: 22px 20px; display: flex; flex-direction: column; gap: 14px; }
+.kicker { font-size: 13px; font-weight: 700; color: var(--accent); }
+h1, h2, h3 { margin: 0; }
+p { margin: 0; }
+
+/* 시작 */
+.hero h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(34px, 10vw, 44px); line-height: 1.18; text-wrap: balance; }
+.hero h1 span { color: var(--accent); }
+.hero p { color: var(--muted); }
+.emoji-row { display: flex; gap: 6px; flex-wrap: wrap; font-size: 26px; line-height: 1; }
+.emoji-row span { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; background: var(--bg); }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chips span { font-size: 13px; padding: 4px 11px; border-radius: 99px; background: var(--bg); color: var(--muted); }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 13px; color: var(--muted); }
+.field input { font: inherit; padding: 13px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+.btn {
+  display: block; width: 100%; text-align: center; text-decoration: none; padding: 16px; border-radius: 14px;
+  border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 17px;
+}
+.btn.sub { background: var(--card); color: var(--ink); border: 1px solid var(--line); font-weight: 500; font-size: 15px; padding: 13px; }
+
+/* 질문 */
+.top { display: flex; align-items: center; gap: 12px; }
+.top .back { background: none; border: none; color: var(--muted); font-size: 22px; padding: 0 4px; line-height: 1; }
+.top .bar { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+.top .bar i { display: block; height: 100%; background: var(--accent); border-radius: 4px; transition: width .3s; }
+.top .num { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 3.2em; text-align: right; }
+.q-emoji { font-size: 44px; line-height: 1; }
+.q-title { font-family: var(--f-display); font-weight: 400; font-size: 25px; line-height: 1.4; text-wrap: balance; }
+.answers { display: flex; flex-direction: column; gap: 10px; }
+.answer {
+  text-align: left; padding: 18px; border-radius: 16px; border: 2px solid var(--line); background: var(--card);
+  font-size: 16px; transition: border-color .15s, background .15s, transform .1s;
+}
+.answer:hover { border-color: var(--accent); }
+.answer:active { transform: scale(.98); }
+.answer.picked { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+
+/* 분석 중 */
+.loading { text-align: center; padding-block: 80px; display: flex; flex-direction: column; gap: 16px; align-items: center; }
+.loading .spin { width: 44px; height: 44px; border-radius: 50%; border: 4px solid var(--line); border-top-color: var(--accent); animation: spin .8s linear infinite; }
+.loading p { color: var(--muted); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* 결과 */
+.result-hero { background: var(--tc); color: #fff; text-align: center; align-items: center; gap: 8px; padding-block: 28px 26px; }
+.result-hero .who { font-size: 15px; opacity: .9; }
+.result-hero .big-emoji { font-size: 64px; line-height: 1.1; width: 104px; height: 104px; display: grid; place-items: center; border-radius: 50%; background: rgba(255,255,255,.2); margin-block: 6px; }
+.result-hero h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(34px, 10vw, 42px); line-height: 1.15; }
+.result-hero .tag { font-weight: 500; opacity: .95; }
+.result-hero .pop { animation: pop .5s cubic-bezier(.2,1.5,.4,1) both; }
+@keyframes pop { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.sec-title { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+.axes { display: flex; flex-direction: column; gap: 10px; }
+.axis { display: grid; grid-template-columns: 3.6em 1fr 3.6em; gap: 10px; align-items: center; font-size: 14px; }
+.axis span:last-child { text-align: right; }
+.axis .track { display: flex; height: 10px; background: color-mix(in srgb, var(--tc) 18%, var(--card)); border-radius: 5px; overflow: hidden; }
+.axis .track i { display: block; height: 100%; background: var(--tc); border-radius: 5px; }
+.axis .on { font-weight: 700; }
+.axis .off { color: var(--muted); }
+.axis small { display: block; font-size: 12px; font-variant-numeric: tabular-nums; }
+.list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.list li { padding: 11px 14px; background: color-mix(in srgb, var(--tc) 10%, var(--card)); border-radius: 12px; }
+.caution { padding: 13px 14px; border-radius: 12px; background: var(--bg); color: var(--ink); }
+
+.mate { border-radius: 16px; padding: 16px; display: grid; grid-template-columns: 56px 1fr; gap: 4px 14px; align-items: center; }
+.mate .m-emoji { grid-row: span 2; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; font-size: 30px; background: var(--card); }
+.mate .m-lbl { font-size: 13px; font-weight: 700; }
+.mate .m-name { font-family: var(--f-display); font-weight: 400; font-size: 21px; line-height: 1.2; }
+.mate p { grid-column: 1 / -1; font-size: 14px; margin-top: 6px; }
+.mate.good { background: color-mix(in srgb, var(--good) 13%, var(--card)); }
+.mate.good .m-lbl { color: var(--good); }
+.mate.bad { background: color-mix(in srgb, var(--bad) 12%, var(--card)); }
+.mate.bad .m-lbl { color: var(--bad); }
+
+.gift { border: 2px dashed color-mix(in srgb, var(--gift) 55%, transparent); background: color-mix(in srgb, var(--gift) 8%, var(--card)); color: var(--ink); text-decoration: none; transition: transform .1s; }
+.gift:active { transform: scale(.98); }
+.gift .g-lbl { font-size: 13px; font-weight: 700; color: var(--gift); }
+.gift .g-body { display: grid; grid-template-columns: 112px 1fr; gap: 14px; align-items: center; }
+.gift .g-img { width: 112px; height: 112px; max-width: 100%; border-radius: 14px; object-fit: cover; background: #fff; }
+.gift .g-text { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.gift .g-name { font-family: var(--f-display); font-weight: 400; font-size: 21px; line-height: 1.25; }
+.gift p { font-size: 14px; color: var(--muted); }
+.gift .g-more { align-self: flex-end; font-size: 14px; font-weight: 700; color: var(--gift); }
+.maker { text-align: center; font-size: 12px; color: var(--muted); }
+.share-hint { text-align: center; font-size: 14px; color: var(--muted); }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.toast { text-align: center; font-size: 13px; color: var(--good); min-height: 1.4em; }
+
+details.all { background: var(--card); border-radius: 16px; }
+details.all summary { padding: 15px 18px; cursor: pointer; font-weight: 500; }
+.all-list { padding: 0 18px 16px; display: flex; flex-direction: column; gap: 12px; }
+.all-list div { font-size: 14px; display: flex; flex-direction: column; }
+.all-list b { font-size: 15px; }
+.all-list span { color: var(--muted); }
+
+.promo { margin-top: 8px; border-top: 1px solid var(--line); padding-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+.promo h4 { margin: 0; font-size: 16px; }
+.promo p { color: var(--muted); font-size: 14px; }
+.promo .tel { color: var(--ink); font-weight: 700; user-select: all; font-variant-numeric: tabular-nums; }
+.btn.catalog { background: var(--ink); color: var(--bg); }
+
+button.gift { font: inherit; text-align: left; width: 100%; cursor: pointer; }
+button.btn { cursor: pointer; }
+
+/* 카탈로그 뷰어: 화면 전체를 덮는 어두운 열람대 (테마와 무관하게 고정) */
+.viewer {
+  position: fixed; inset: 0; z-index: 50; background: #0F1218; color: #F1F3F7;
+  display: flex; flex-direction: column;
+  padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.viewer[hidden] { display: none; }
+.v-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; }
+.v-title { font-size: 14px; font-weight: 700; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.v-x { background: #262B36; border: none; color: #F1F3F7; width: 38px; height: 38px; border-radius: 50%; font-size: 16px; flex: none; }
+.v-scroll { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; display: flex; justify-content: center; align-items: flex-start; padding: 0 8px; }
+.v-scroll img { width: 100%; max-width: 720px; height: auto; background: #fff; border-radius: 4px; }
+.viewer.zoomed .v-scroll { justify-content: flex-start; }
+.viewer.zoomed .v-scroll img { width: 210%; max-width: none; flex: none; }
+.v-nav { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 10px 12px 4px; }
+.v-nav button { background: #262B36; border: none; color: #F1F3F7; padding: 10px 12px; border-radius: 10px; font-size: 14px; }
+.v-nav button:disabled { opacity: .35; }
+.v-num { font-size: 13px; font-variant-numeric: tabular-nums; color: #AEB5C2; }
+.v-tel-row { text-align: center; font-size: 13px; color: #AEB5C2; padding: 4px 0 10px; }
+.v-tel-row span { color: #F1F3F7; font-weight: 700; user-select: all; }
+
+@media (prefers-reduced-motion: reduce) {
+  .result-hero .pop, .loading .spin { animation: none; }
+  .top .bar i, .answer { transition: none; }
+}
+</style>
+
+<div class="wrap" id="app"></div>
+
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="v-title" hidden>
+  <div class="v-bar">
+    <span class="v-title" id="v-title"></span>
+    <button class="v-x" id="v-close" aria-label="카탈로그 닫기">✕</button>
+  </div>
+  <div class="v-scroll" id="v-scroll"><img id="v-img" alt="" width="1100" height="1548"></div>
+  <div class="v-nav">
+    <button id="v-prev" aria-label="이전 쪽">‹ 이전</button>
+    <button id="v-toc">목차</button>
+    <span class="v-num" id="v-num"></span>
+    <button id="v-zoom">확대</button>
+    <button id="v-next" aria-label="다음 쪽">다음 ›</button>
+  </div>
+  <p class="v-tel-row">주문·문의 <span id="v-tel"></span></p>
+</div>
+
+<script>
+// ▼ 매달 카탈로그가 바뀌면: catalog/ 폴더 이미지 교체 + 아래 값 수정
+const CATALOG_NAME = "누구나기프트 10월호 카탈로그";
+const CATALOG_PAGES = 52;
+const CATALOG_TOC = 2;   // 목차 쪽
+const PHONE = "031-305-4554";
+const pageSrc = n => `catalog/c-${String(n).padStart(2, "0")}.jpg`;
+
+// ── 방문 기록 (이름 없이) → 구글 시트 "영업스타일테스트 로그" ──
+// LOG_URL이 비어 있으면 아무것도 보내지 않아요 (미리보기용)
+const LOG_URL = "https://script.google.com/macros/s/AKfycbyRLWrya231PRXCxbku1vG6jililfCAjooFO9VdbSg2DwSP6joAuAdVUtW6_xwpGn_P/exec";
+const VID = Math.random().toString(36).slice(2, 8);
+const UA = navigator.userAgent;
+const DEV = /iPhone|iPad|Android|Mobile/i.test(UA) ? "모바일" : "PC";
+const KAKAO = /KAKAOTALK/i.test(UA);
+const SRC = new URLSearchParams(location.search).get("from") || "";
+const loggedPages = new Set();
+function log(act, extra = {}) {
+  if (!LOG_URL) return;
+  const body = JSON.stringify({ vid: VID, act, dev: DEV, kakao: KAKAO, src: SRC, ...extra });
+  try { fetch(LOG_URL, { method: "POST", mode: "no-cors", body, keepalive: true }); } catch (e) {}
+}
+
+// 축: 0 = 개척/소개, 1 = 마음/숫자, 2 = 관리/클로징
+const AXES = [
+  { a: "개척", b: "소개" },
+  { a: "마음", b: "숫자" },
+  { a: "관리", b: "클로징" },
+];
+
+const QUESTIONS = [
+  { axis: 0, e: "📉", q: "이번 달 신규 고객 리스트가 바닥났어요!", a: "일단 운동화 끈 묶고 상가 한 바퀴 돌아요", b: "기존 고객님께 \"딱 한 분만 소개해주세요\" 전화해요" },
+  { axis: 1, e: "💸", q: "고객님이 \"좀 비싼 것 같은데요…\" 하신다면?", a: "\"가족분들 생각하시면요…\" 하고 이야기로 풀어요", b: "하루 단위 금액이랑 보장 비교표를 바로 꺼내요" },
+  { axis: 2, e: "🤔", q: "고객님이 \"한번 생각해볼게요\" 하셨어요.", a: "다음 주에 안부 문자부터 보내요", b: "\"어떤 부분이 걸리세요? 지금 같이 보실까요?\"" },
+  { axis: 0, e: "🎪", q: "아는 사람이 거의 없는 행사장에 갔어요.", a: "명함 20장은 뿌리고 와요", b: "아는 분 옆에 붙어서 자연스럽게 소개받아요" },
+  { axis: 1, e: "🌙", q: "상담 전날 밤, 내가 챙기는 건?", a: "고객님 근황, 가족 이야기, 지난번 대화 메모", b: "보장분석표랑 비교 설계안 3개" },
+  { axis: 2, e: "📅", q: "내 휴대폰 캘린더를 열어보면?", a: "고객님 생일, 결혼기념일로 빼곡해요", b: "이번 주 청약 일정이 제일 크게 적혀 있어요" },
+  { axis: 0, e: "🏆", q: "제일 뿌듯했던 계약을 떠올려보면?", a: "연고 하나 없던 분을 내 힘으로 고객님으로 만든 계약", b: "고객님이 가족, 지인까지 줄줄이 소개해주신 계약" },
+  { axis: 1, e: "😮‍💨", q: "옆자리 동료가 요즘 실적 때문에 힘들어해요.", a: "커피 한 잔 사주면서 이야기를 들어줘요", b: "지난달 활동량을 같이 뽑아보고 원인을 찾아줘요" },
+  { axis: 2, e: "⏰", q: "월말 마감 3일 전이에요.", a: "평소처럼 해요. 꾸준히 해둔 게 들어오거든요", b: "지금이 내 무대! 전화 돌리기 시작해요" },
+  { axis: 0, e: "🛒", q: "주말에 마트에서 장을 보다가…", a: "시식 코너 직원분이랑도 명함을 주고받아요", b: "장만 봐요. 대신 아는 고객님 만나면 30분 수다" },
+  { axis: 1, e: "⚖️", q: "고객님이 다른 회사 상품이랑 비교해달래요.", a: "\"저 믿고 맡겨주신 거잖아요\" 신뢰로 설명해요", b: "항목별로 표 만들어서 장단점을 다 보여드려요" },
+  { axis: 2, e: "🗓️", q: "계약하고 1년 동안 그 고객님과 나는?", a: "명절, 생일마다 꼭 연락드리며 챙겨요", b: "연락은 가끔이어도 필요할 때 확실히 도와드려요" },
+];
+
+// 코드: [P개척|R소개][H마음|D숫자][M관리|K클로징]
+const TYPES = {
+  PHM: { emoji: "🌻", color: "#E08A12", name: "동네 햇살형", tag: "골목 끝 집 강아지 이름까지 아는 사람",
+    desc: "발로 뛰어 만난 고객님을 정으로 오래오래 챙겨요. 계약 이야기보다 안부 인사가 먼저인 스타일!",
+    good: ["처음 본 고객님도 세 번째 만남엔 \"우리 설계사님\"", "해지율이 낮아요. 고객님이 미안해서 못 깨요", "우리 동네 상권 지도가 머릿속에 다 있어요"],
+    caution: "정이 많아서 거절을 잘 못 하고, 계약 얘기 꺼낼 타이밍을 자주 놓쳐요.",
+    gift: { img: "img/rice.jpg", page: 3, name: "철원 오대쌀", why: "\"밥 한번 같이 먹어요\" 하는 마음을 그대로 담은 선물이에요. 받는 집 식탁에 오래 남아요." } },
+  PHK: { emoji: "🔥", color: "#E04A2F", name: "열정 불도저형", tag: "거절당한 다음 날, 웃으며 다시 가는 사람",
+    desc: "에너지로 문을 열고 진심으로 마무리해요. 지점 분위기를 끌어올리는 엔진 같은 존재!",
+    good: ["\"아니요\"를 \"아직이요\"로 듣는 회복력", "월말 막판 역전의 주인공", "신입들이 따라다니고 싶어 하는 선배"],
+    caution: "속도가 빨라서 고객님이 숨 고를 틈이 없을 때가 있어요. 계약 후 관리도 꼭 챙겨주세요.",
+    gift: { img: "img/ginseng.jpg", page: 36, name: "정관장 홍삼비력", why: "내 에너지를 고객님께 그대로 나눠드리는 선물이에요. 바쁜 사장님 고객님께 특히 반응이 좋아요." } },
+  PDM: { emoji: "🗺️", color: "#2F8F7A", name: "지도 펼친 전략가형", tag: "동선과 일정이 엑셀 한 장에 다 있는 사람",
+    desc: "개척도 계획대로! 구역을 나누고, 방문 주기를 정하고, 기록을 꼼꼼히 남기는 스타일이에요.",
+    good: ["활동량이 매달 들쭉날쭉하지 않아요", "고객님 이력을 물으면 3초 안에 나와요", "효율 좋은 동선으로 하루 방문 수가 많아요"],
+    caution: "계획에 없던 기회가 오면 살짝 머뭇거려요. 가끔은 즉흥도 실적이 돼요.",
+    gift: { img: "img/containers.jpg", page: 11, name: "담온 원형 찬통 3종", why: "실속을 아는 분이 고르는 실용 선물이에요. 냉장고 열 때마다 보여서 이름이 잊히지 않아요." } },
+  PDK: { emoji: "🎯", color: "#3E5BD8", name: "원샷 스나이퍼형", tag: "첫 상담에서 설계서로 끝내는 사람",
+    desc: "준비된 숫자로 첫 만남에 승부를 봐요. 고객님이 \"이렇게까지 준비해오셨어요?\" 하게 만드는 스타일!",
+    good: ["첫 미팅 계약 전환율이 높아요", "질문이 나오기 전에 답을 준비해둬요", "큰 계약 앞에서도 떨지 않아요"],
+    caution: "계약 후엔 연락이 뜸해지기 쉬워요. 다음 소개는 관리에서 나온답니다.",
+    gift: { img: "img/moodlamp.jpg", page: 43, name: "듀플렉스 보름달 무드등 가습기", why: "첫인상 한 방이 필요한 자리에 딱이에요. 포장 열자마자 \"오, 센스 있다\"가 나와요." } },
+  RHM: { emoji: "🤝", color: "#D2457A", name: "인맥 부자 다정형", tag: "경조사 달력이 제일 빽빽한 사람",
+    desc: "고객님이 고객님을 데려와요. 사람 챙기는 게 곧 영업이 되는 소개 계약의 달인!",
+    good: ["소개 계약 비율이 지점 최상위", "명절 시즌엔 연락이 먼저 와요", "고객님 가족 이름까지 다 알아요"],
+    caution: "챙길 사람이 너무 많아서 정작 나를 못 챙겨요. 선물 예산도 미리 정해두세요.",
+    gift: { img: "img/nuts.jpg", page: 12, name: "햇살담은 견과세트", why: "\"늘 고마워요\" 한마디를 대신하는 정석 답례품이에요. 부담 없는 가격이라 여러 고객님께 돌리기 좋아요." } },
+  RHK: { emoji: "🎤", color: "#8B4FD6", name: "분위기 메이커형", tag: "모임에 가면 계약이 따라오는 사람",
+    desc: "사람들 사이에서 빛나고, 그 자리에서 마무리까지 해요. 지점 회식 MC도 대개 이 유형!",
+    good: ["모임 한 번에 가망고객이 여러 명 생겨요", "어색한 자리를 3분 만에 풀어요", "\"그 설계사님 재밌어\"로 소개가 돌아요"],
+    caution: "말로 한 약속이 많아요. 계약 조건은 꼭 문서로 한 번 더 정리해주세요.",
+    gift: { img: "img/tumbler.jpg", page: 12, name: "라온까사 러뷰 피크닉 텀블러", why: "들고 다닐 때마다 내가 생각나는 선물이에요. 젊은 고객님, 모임 단체 선물로 인기 많아요." } },
+  RDM: { emoji: "📋", color: "#4A7A2E", name: "꼼꼼 집사형", tag: "고객님 보장 내역을 고객님보다 잘 아는 사람",
+    desc: "소개받은 고객님을 빈틈없는 관리로 평생 고객으로 만들어요. 보험금 청구 도와달라는 연락이 제일 많은 유형!",
+    good: ["청구, 서류 처리에서 신뢰가 쌓여요", "갱신, 만기 일정을 절대 안 놓쳐요", "민원이 거의 없어요"],
+    caution: "완벽하게 준비될 때까지 기다리다가 타이밍을 놓칠 수 있어요.",
+    gift: { img: "img/blanket.jpg", page: 13, name: "극세사 밍크 이불담요", why: "고객님의 겨울까지 미리 챙기는 선물이에요. 받는 분이 \"역시 꼼꼼하시네\" 하실 거예요." } },
+  RDK: { emoji: "💼", color: "#2B4C6F", name: "신뢰 컨설턴트형", tag: "\"그분이 하라면 해\"의 주인공",
+    desc: "숫자와 근거로 신뢰를 쌓고, 소개받은 자리에서 확실하게 결정을 이끌어요. 고액 계약이 잘 나오는 유형!",
+    good: ["법인, 자산가 고객님께 강해요", "고객님이 다른 데 설계안을 들고 와서 물어봐요", "결정을 미루는 고객님도 부드럽게 정리해요"],
+    caution: "가끔 너무 단호해 보일 수 있어요. 숫자 사이에 따뜻한 한마디를 섞어주세요.",
+    gift: { img: "img/jerky.jpg", page: 34, name: "호주산 소고기 치즈육포", why: "격을 갖춘 고급 선물이에요. 법인 대표님, VIP 고객님 인사용으로 많이 찾으세요." } },
+};
+
+const app = document.getElementById("app");
+let state = { name: "", step: 0, picks: [] };
+
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+
+function renderIntro() {
+  app.innerHTML = `
+    <section class="card hero">
+      <div class="kicker">우리 지점 조회 시간 2분 이벤트</div>
+      <h1>나는 어떤<br><span>영업 스타일</span>일까?</h1>
+      <p>영업 현장에서 한 번쯤 겪어본 12가지 상황에 답해보세요. 나의 영업 유형과 함께 일하면 찰떡인 동료, 티격태격하는 동료까지 알려드려요.</p>
+      <div class="emoji-row" aria-hidden="true">${Object.values(TYPES).map(t => `<span>${t.emoji}</span>`).join("")}</div>
+      <div class="chips"><span>12문항</span><span>8가지 유형</span><span>찰떡·상극 동료</span></div>
+      <div class="field">
+        <label for="nm">이름 (결과 화면에 나와요, 안 써도 돼요)</label>
+        <input id="nm" maxlength="10" placeholder="예: 김보험" value="${esc(state.name)}">
+      </div>
+      <button class="btn" id="start">테스트 시작하기</button>
+    </section>
+    ${promoHTML()}`;
+  document.getElementById("start").onclick = () => {
+    state.name = document.getElementById("nm").value.trim();
+    log("테스트 시작");
+    state.step = 0; state.picks = [];
+    renderQuestion();
+  };
+}
+
+function renderQuestion() {
+  const i = state.step, Q = QUESTIONS[i];
+  const pct = Math.round((i / QUESTIONS.length) * 100);
+  app.innerHTML = `
+    <div class="top">
+      <button class="back" id="back" aria-label="${i ? "이전 질문" : "처음으로"}">‹</button>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <span class="num">${i + 1} / ${QUESTIONS.length}</span>
+    </div>
+    <section class="card">
+      <div class="q-emoji" aria-hidden="true">${Q.e}</div>
+      <h2 class="q-title">${esc(Q.q)}</h2>
+    </section>
+    <div class="answers">
+      <button class="answer" data-v="a">${esc(Q.a)}</button>
+      <button class="answer" data-v="b">${esc(Q.b)}</button>
+    </div>`;
+  app.querySelectorAll(".answer").forEach(btn => btn.onclick = () => {
+    btn.classList.add("picked");
+    state.picks[i] = btn.dataset.v;
+    setTimeout(() => {
+      if (i + 1 < QUESTIONS.length) { state.step++; renderQuestion(); }
+      else renderLoading();
+    }, 180);
+  });
+  document.getElementById("back").onclick = () => {
+    if (i === 0) renderIntro(); else { state.step--; renderQuestion(); }
+  };
+  window.scrollTo(0, 0);
+}
+
+function score() {
+  // 축마다 A 선택 비율. 2:2 동점이면 그 축 첫 질문의 답을 따라요
+  return AXES.map((_, ax) => {
+    const idx = QUESTIONS.map((q, k) => q.axis === ax ? k : -1).filter(k => k >= 0);
+    const ratio = idx.filter(k => state.picks[k] === "a").length / idx.length;
+    const isA = ratio > 0.5 || (ratio === 0.5 && state.picks[idx[0]] === "a");
+    return { ratio, isA };
+  });
+}
+const codeOf = s => (s[0].isA ? "P" : "R") + (s[1].isA ? "H" : "D") + (s[2].isA ? "M" : "K");
+function flip(code, positions) {
+  const pairs = [["P", "R"], ["H", "D"], ["M", "K"]];
+  return code.split("").map((c, k) => positions.includes(k) ? (pairs[k][0] === c ? pairs[k][1] : pairs[k][0]) : c).join("");
+}
+
+// 찰떡: 마음↔숫자만 반대 (같은 방식으로 일하되 설득을 서로 보완)
+function bestWhy(code) {
+  return code[1] === "H"
+    ? "영업 방식은 나랑 같은데, 설득은 숫자로 해요. 내가 마음을 열어두면 이 동료가 비교표로 확신을 더해줘요. 둘이 같이 상담 들어가면 계약률이 쑥 올라가요!"
+    : "영업 방식은 나랑 같은데, 설득은 마음으로 해요. 내가 숫자로 설명하면 이 동료가 고객님 마음을 움직여줘요. 둘이 같이 상담 들어가면 계약률이 쑥 올라가요!";
+}
+// 상극: 세 축 모두 반대
+function worstWhy(code) {
+  const me = [code[0] === "P" ? "개척" : "소개", code[1] === "H" ? "마음" : "숫자", code[2] === "M" ? "관리" : "클로징"];
+  const you = [code[0] === "P" ? "소개" : "개척", code[1] === "H" ? "숫자" : "마음", code[2] === "M" ? "클로징" : "관리"];
+  return `나는 ${me.join("·")}, 이 동료는 ${you.join("·")}. 하나부터 열까지 정반대라 같이 상담 가면 서로 답답할 수 있어요. 대신 서로한테 배울 게 제일 많은 사이예요.`;
+}
+
+function renderLoading() {
+  app.innerHTML = `<div class="loading"><div class="spin" aria-hidden="true"></div><p>답변을 분석하고 있어요</p></div>`;
+  setTimeout(renderResult, 1100);
+}
+
+function renderResult() {
+  const s = score(), code = codeOf(s), T = TYPES[code];
+  const bestCode = flip(code, [1]), worstCode = flip(code, [0, 1, 2]);
+  const best = TYPES[bestCode], worst = TYPES[worstCode];
+  const who = state.name ? `${esc(state.name)}님` : "나";
+  document.documentElement.style.setProperty("--tc", T.color);
+  log("테스트 완료", { type: T.name });
+  const axisRow = (ax, r) => {
+    const aPct = Math.round(r.ratio * 100);
+    return `<div class="axis">
+      <span class="${r.isA ? "on" : "off"}">${AXES[ax].a}<small>${aPct}%</small></span>
+      <div class="track"><i style="width:${r.isA ? aPct : 100 - aPct}%;${r.isA ? "" : "margin-left:auto"}"></i></div>
+      <span class="${r.isA ? "off" : "on"}">${AXES[ax].b}<small>${100 - aPct}%</small></span>
+    </div>`;
+  };
+  app.innerHTML = `
+    <section class="card result-hero">
+      <p class="who">${who}의 영업 스타일은</p>
+      <div class="big-emoji pop" aria-hidden="true">${T.emoji}</div>
+      <h1>${T.name}</h1>
+      <p class="tag">${T.tag}</p>
+    </section>
+    <section class="card">
+      <p>${T.desc}</p>
+      <div class="axes">${s.map((r, ax) => axisRow(ax, r)).join("")}</div>
+    </section>
+    <section class="card">
+      <h3 class="sec-title">💪 이런 점이 강해요</h3>
+      <ul class="list">${T.good.map(g => `<li>${g}</li>`).join("")}</ul>
+      <h3 class="sec-title">⚠️ 이것만 조심하세요</h3>
+      <p class="caution">${T.caution}</p>
+    </section>
+    <section class="mate good">
+      <div class="m-emoji" aria-hidden="true">${best.emoji}</div>
+      <span class="m-lbl">나와 찰떡인 동료 유형</span>
+      <span class="m-name">${best.name}</span>
+      <p>${bestWhy(code)}</p>
+    </section>
+    <section class="mate bad">
+      <div class="m-emoji" aria-hidden="true">${worst.emoji}</div>
+      <span class="m-lbl">나와 상극인 동료 유형</span>
+      <span class="m-name">${worst.name}</span>
+      <p>${worstWhy(code)}</p>
+    </section>
+    <button class="card gift" data-page="${T.gift.page}" aria-label="${T.gift.name} 카탈로그 ${T.gift.page}쪽 보기">
+      <span class="g-lbl">🎁 ${T.name}에게 어울리는 고객 선물</span>
+      <div class="g-body">
+        <img class="g-img" src="${T.gift.img}" alt="${T.gift.name} 상품 사진" width="400" height="400">
+        <div class="g-text">
+          <span class="g-name">${T.gift.name}</span>
+          <p>${T.gift.why}</p>
+        </div>
+      </div>
+      <span class="g-more">카탈로그 ${T.gift.page}쪽에서 보기 ›</span>
+    </button>
+    <p class="maker">누구나기프트와 함께 만든 테스트예요</p>
+    <p class="share-hint">📸 결과를 캡처해서 지점 단톡방에 올려보세요!</p>
+    <div class="actions">
+      <button class="btn sub" id="copy">결과 문구 복사</button>
+      <button class="btn sub" id="again">다시 해보기</button>
+    </div>
+    <p class="toast" id="toast" role="status"></p>
+    <details class="all"><summary>8가지 유형 전체 보기</summary>
+      <div class="all-list">${Object.entries(TYPES).map(([k, t]) => `<div><b>${t.emoji} ${t.name}${k === code ? " (나)" : ""}</b><span>${t.tag}</span></div>`).join("")}</div>
+    </details>
+    ${promoHTML()}`;
+  const shareText = `${state.name ? state.name + "님" : "나"}의 영업 스타일은 ${T.emoji} ${T.name}!\n"${T.tag}"\n\n찰떡 동료: ${best.emoji} ${best.name}\n상극 동료: ${worst.emoji} ${worst.name}\n\n우리 지점에 ${best.name} 누구예요? 🙋`;
+  document.getElementById("copy").onclick = async () => {
+    const t = document.getElementById("toast");
+    log("결과 복사", { type: T.name });
+    try { await navigator.clipboard.writeText(shareText); t.textContent = "복사됐어요! 단톡방에 붙여넣어 보세요."; }
+    catch (e) { t.textContent = "이 화면에선 복사가 안 돼요. 캡처로 공유해주세요."; }
+  };
+  document.getElementById("again").onclick = () => {
+    state.step = 0; state.picks = [];
+    document.documentElement.style.removeProperty("--tc");
+    renderIntro();
+  };
+  window.scrollTo(0, 0);
+}
+
+function promoHTML() {
+  return `<section class="promo">
+    <h4>고객님 선물, 고민될 땐 누구나기프트</h4>
+    <p>보험 지점 고객 선물부터 명절·행사 답례품, 단체 선물까지. 1박스부터 지점으로 바로 보내드려요.</p>
+    <button class="btn catalog" data-page="${CATALOG_TOC}">이번 달 선물 카탈로그 보기</button>
+    <p>주문·문의 <span class="tel">${PHONE}</span></p>
+  </section>`;
+}
+
+app.addEventListener("click", e => {
+  const b = e.target.closest("[data-page]");
+  if (!b) return;
+  log(b.classList.contains("gift") ? "선물 카드 클릭" : "카탈로그 버튼", { page: +b.dataset.page, item: giftOnPage(+b.dataset.page) });
+  openCatalog(+b.dataset.page);
+});
+
+// ── 카탈로그 뷰어 ──
+const V = document.getElementById("viewer");
+const vImg = document.getElementById("v-img"), vScroll = document.getElementById("v-scroll");
+let vPage = 1, vZoom = false, lastFocus = null;
+function showPage(n) {
+  vPage = Math.min(Math.max(n, 1), CATALOG_PAGES);
+  vImg.src = pageSrc(vPage);
+  vImg.alt = `${CATALOG_NAME} ${vPage}쪽`;
+  document.getElementById("v-num").textContent = `${vPage} / ${CATALOG_PAGES}`;
+  document.getElementById("v-prev").disabled = vPage === 1;
+  document.getElementById("v-next").disabled = vPage === CATALOG_PAGES;
+  vScroll.scrollTo(0, 0);
+  [vPage - 1, vPage + 1].forEach(k => { if (k >= 1 && k <= CATALOG_PAGES) new Image().src = pageSrc(k); });
+  // 같은 방문에서 같은 쪽은 한 번만 기록
+  if (!loggedPages.has(vPage)) { loggedPages.add(vPage); log("카탈로그 열람", { page: vPage, item: giftOnPage(vPage) }); }
+}
+function giftOnPage(n) { return Object.values(TYPES).filter(t => t.gift.page === n).map(t => t.gift.name).join(", "); }
+function setZoom(z) { vZoom = z; V.classList.toggle("zoomed", z); document.getElementById("v-zoom").textContent = z ? "축소" : "확대"; }
+function openCatalog(n) {
+  lastFocus = document.activeElement;
+  setZoom(false); showPage(n);
+  V.hidden = false; document.body.style.overflow = "hidden";
+  document.getElementById("v-close").focus();
+}
+function closeCatalog() { V.hidden = true; document.body.style.overflow = ""; lastFocus?.focus(); }
+document.getElementById("v-close").onclick = closeCatalog;
+document.getElementById("v-prev").onclick = () => showPage(vPage - 1);
+document.getElementById("v-next").onclick = () => showPage(vPage + 1);
+document.getElementById("v-toc").onclick = () => showPage(CATALOG_TOC);
+document.getElementById("v-zoom").onclick = () => setZoom(!vZoom);
+vImg.addEventListener("dblclick", () => setZoom(!vZoom));
+document.addEventListener("keydown", e => {
+  if (V.hidden) return;
+  if (e.key === "Escape") closeCatalog();
+  if (e.key === "ArrowLeft") showPage(vPage - 1);
+  if (e.key === "ArrowRight") showPage(vPage + 1);
+});
+let tx = null, ty = null;
+vScroll.addEventListener("touchstart", e => { if (e.touches.length === 1) { tx = e.touches[0].clientX; ty = e.touches[0].clientY; } else tx = null; }, { passive: true });
+vScroll.addEventListener("touchend", e => {
+  if (tx === null || vZoom) return;
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) showPage(vPage + (dx < 0 ? 1 : -1));
+  tx = null;
+});
+document.getElementById("v-title").textContent = CATALOG_NAME;
+document.getElementById("v-tel").textContent = PHONE;
+
+renderIntro();
+log("입장");
+</script>
+
+</body>
+</html>
