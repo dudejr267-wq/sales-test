@@ -76,6 +76,13 @@ p { margin: 0; }
   display: block; width: 100%; text-align: center; text-decoration: none; padding: 16px; border-radius: 14px;
   border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 17px;
 }
+.btn.big { font-size: 19px; padding: 18px; }
+.name-box { display: flex; flex-direction: column; gap: 6px; background: var(--card); border-radius: 20px; padding: 16px 18px; }
+.name-box label { font-size: 13px; color: var(--muted); }
+.name-row { display: flex; gap: 8px; }
+.name-row input { flex: 1; min-width: 0; font: inherit; padding: 11px 13px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+.name-row .btn.sub { width: auto; padding: 11px 16px; }
+.name-box .note { font-size: 12px; color: var(--muted); margin: 0; }
 .btn.sub { background: var(--card); color: var(--ink); border: 1px solid var(--line); font-weight: 500; font-size: 15px; padding: 13px; }
 
 /* 질문 */
@@ -160,32 +167,8 @@ details.all summary { padding: 15px 18px; cursor: pointer; font-weight: 500; }
 .promo .tel { color: var(--ink); font-weight: 700; user-select: all; font-variant-numeric: tabular-nums; }
 .btn.catalog { background: var(--ink); color: var(--bg); }
 
-button.gift { font: inherit; text-align: left; width: 100%; cursor: pointer; }
+a.gift { display: flex; text-align: left; text-decoration: none; }
 button.btn { cursor: pointer; }
-
-/* 카탈로그 뷰어: 화면 전체를 덮는 어두운 열람대 (테마와 무관하게 고정) */
-.viewer {
-  position: fixed; inset: 0; z-index: 50; background: #0F1218; color: #F1F3F7;
-  display: flex; flex-direction: column;
-  padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-.viewer[hidden] { display: none; }
-.v-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; }
-.v-title { font-size: 14px; font-weight: 700; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.v-actions { display: flex; align-items: center; gap: 8px; flex: none; }
-.v-pdf { background: #F1F3F7; color: #0F1218; text-decoration: none; font-size: 13px; font-weight: 700; padding: 9px 12px; border-radius: 99px; }
-.btn.pdf { display: block; background: var(--card); color: var(--ink); border: 1px solid var(--line); font-weight: 500; font-size: 15px; padding: 13px; text-decoration: none; }
-.v-x { background: #262B36; border: none; color: #F1F3F7; width: 38px; height: 38px; border-radius: 50%; font-size: 16px; flex: none; }
-.v-scroll { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; display: flex; justify-content: center; align-items: flex-start; padding: 0 8px; }
-.v-scroll img { width: 100%; max-width: 720px; height: auto; background: #fff; border-radius: 4px; }
-.viewer.zoomed .v-scroll { justify-content: flex-start; }
-.viewer.zoomed .v-scroll img { width: 210%; max-width: none; flex: none; }
-.v-nav { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 10px 12px 4px; }
-.v-nav button { background: #262B36; border: none; color: #F1F3F7; padding: 10px 12px; border-radius: 10px; font-size: 14px; }
-.v-nav button:disabled { opacity: .35; }
-.v-num { font-size: 13px; font-variant-numeric: tabular-nums; color: #AEB5C2; }
-.v-tel-row { text-align: center; font-size: 13px; color: #AEB5C2; padding: 4px 0 10px; }
-.v-tel-row span { color: #F1F3F7; font-weight: 700; user-select: all; }
 
 @media (prefers-reduced-motion: reduce) {
   .result-hero .pop, .loading .spin { animation: none; }
@@ -195,35 +178,16 @@ button.btn { cursor: pointer; }
 
 <div class="wrap" id="app"></div>
 
-<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="v-title" hidden>
-  <div class="v-bar">
-    <span class="v-title" id="v-title"></span>
-    <div class="v-actions">
-      <a class="v-pdf pdf-link" id="v-pdf">PDF 저장</a>
-      <button class="v-x" id="v-close" aria-label="카탈로그 닫기">✕</button>
-    </div>
-  </div>
-  <div class="v-scroll" id="v-scroll"><img id="v-img" alt="" width="1100" height="1548"></div>
-  <div class="v-nav">
-    <button id="v-prev" aria-label="이전 쪽">‹ 이전</button>
-    <button id="v-toc">목차</button>
-    <span class="v-num" id="v-num"></span>
-    <button id="v-zoom">확대</button>
-    <button id="v-next" aria-label="다음 쪽">다음 ›</button>
-  </div>
-  <p class="v-tel-row">주문·문의 <span id="v-tel"></span></p>
-</div>
 
 <script>
 // ▼ 매달 카탈로그가 바뀌면: catalog/ 폴더 이미지 교체 + 아래 값 수정
-const CATALOG_NAME = "누구나기프트 10월호 카탈로그";
-const CATALOG_PAGES = 52;
+const CATALOG_NAME = "누구나기프트 11월호 카탈로그";
+const CATALOG_URL = "https://heyzine.com/flip-book/fade5a2461.html";   // 매달 새 링크로 교체
+const CATALOG_PDF = "https://cdnm.heyzine.com/files/uploaded/fade5a246194c7a0fc297545e4647fd9bb0d2243.pdf";
+const CATALOG_PDF_SIZE = "11MB";
 const CATALOG_TOC = 2;   // 목차 쪽
-const CATALOG_PDF = "catalog.pdf";                       // 폰 저장용 가벼운 PDF (원본 76MB → 9.7MB)
-const CATALOG_PDF_NAME = "누구나기프트_10월호_카탈로그.pdf";
-const CATALOG_PDF_SIZE = "9.7MB";
 const PHONE = "031-305-4554";
-const pageSrc = n => `catalog/c-${String(n).padStart(2, "0")}.jpg`;
+const catalogLink = n => `${CATALOG_URL}#page/${n}`;   // 플립북 쪽 번호 = PDF 쪽 번호
 
 // ── 방문 기록 (이름 없이) → 구글 시트 "영업스타일테스트 로그" ──
 // LOG_URL이 비어 있으면 아무것도 보내지 않아요 (미리보기용)
@@ -233,7 +197,6 @@ const UA = navigator.userAgent;
 const DEV = /iPhone|iPad|Android|Mobile/i.test(UA) ? "모바일" : "PC";
 const KAKAO = /KAKAOTALK/i.test(UA);
 const SRC = new URLSearchParams(location.search).get("from") || "";
-const loggedPages = new Set();
 function log(act, extra = {}) {
   if (!LOG_URL) return;
   const body = JSON.stringify({ vid: VID, act, dev: DEV, kakao: KAKAO, src: SRC, name: state.name || "", ...extra });
@@ -248,16 +211,16 @@ const AXES = [
 ];
 
 const QUESTIONS = [
-  { axis: 0, e: "📉", q: "이번 달 신규 고객 리스트가 바닥났어요!", a: "일단 운동화 끈 묶고 상가 한 바퀴 돌아요", b: "기존 고객님께 \"딱 한 분만 소개해주세요\" 전화해요" },
+  { axis: 0, e: "📉", q: "이번 달 신규 고객 리스트가 바닥났어요!", a: "새로운 모임이나 동호회에 얼굴 알리러 나가요", b: "기존 고객님께 \"딱 한 분만 소개해주세요\" 전화해요" },
   { axis: 1, e: "💸", q: "고객님이 \"좀 비싼 것 같은데요…\" 하신다면?", a: "\"가족분들 생각하시면요…\" 하고 이야기로 풀어요", b: "하루 단위 금액이랑 보장 비교표를 바로 꺼내요" },
   { axis: 2, e: "🤔", q: "고객님이 \"한번 생각해볼게요\" 하셨어요.", a: "다음 주에 안부 문자부터 보내요", b: "\"어떤 부분이 걸리세요? 지금 같이 보실까요?\"" },
-  { axis: 0, e: "🎪", q: "아는 사람이 거의 없는 행사장에 갔어요.", a: "명함 20장은 뿌리고 와요", b: "아는 분 옆에 붙어서 자연스럽게 소개받아요" },
+  { axis: 0, e: "🎪", q: "아는 사람이 거의 없는 행사장에 갔어요.", a: "먼저 다가가서 인사하고 명함을 나눠요", b: "아는 분 옆에 붙어서 자연스럽게 소개받아요" },
   { axis: 1, e: "🌙", q: "상담 전날 밤, 내가 챙기는 건?", a: "고객님 근황, 가족 이야기, 지난번 대화 메모", b: "보장분석표랑 비교 설계안 3개" },
   { axis: 2, e: "📅", q: "내 휴대폰 캘린더를 열어보면?", a: "고객님 생일, 결혼기념일로 빼곡해요", b: "이번 주 청약 일정이 제일 크게 적혀 있어요" },
-  { axis: 0, e: "🏆", q: "제일 뿌듯했던 계약을 떠올려보면?", a: "연고 하나 없던 분을 내 힘으로 고객님으로 만든 계약", b: "고객님이 가족, 지인까지 줄줄이 소개해주신 계약" },
+  { axis: 0, e: "🏆", q: "제일 뿌듯했던 계약을 떠올려보면?", a: "처음 만난 분이 제 설명을 듣고 바로 믿어주신 계약", b: "고객님이 가족, 지인까지 줄줄이 소개해주신 계약" },
   { axis: 1, e: "😮‍💨", q: "옆자리 동료가 요즘 실적 때문에 힘들어해요.", a: "커피 한 잔 사주면서 이야기를 들어줘요", b: "지난달 활동량을 같이 뽑아보고 원인을 찾아줘요" },
   { axis: 2, e: "⏰", q: "월말 마감 3일 전이에요.", a: "평소처럼 해요. 꾸준히 해둔 게 들어오거든요", b: "지금이 내 무대! 전화 돌리기 시작해요" },
-  { axis: 0, e: "🛒", q: "주말에 마트에서 장을 보다가…", a: "시식 코너 직원분이랑도 명함을 주고받아요", b: "장만 봐요. 대신 아는 고객님 만나면 30분 수다" },
+  { axis: 0, e: "🛒", q: "주말에 마트에서 장을 보다가…", a: "옆에서 고민하는 분께 자연스럽게 말을 걸어봐요", b: "장만 봐요. 대신 아는 고객님 만나면 30분 수다" },
   { axis: 1, e: "⚖️", q: "고객님이 다른 회사 상품이랑 비교해달래요.", a: "\"저 믿고 맡겨주신 거잖아요\" 신뢰로 설명해요", b: "항목별로 표 만들어서 장단점을 다 보여드려요" },
   { axis: 2, e: "🗓️", q: "계약하고 1년 동안 그 고객님과 나는?", a: "명절, 생일마다 꼭 연락드리며 챙겨요", b: "연락은 가끔이어도 필요할 때 확실히 도와드려요" },
 ];
@@ -268,17 +231,17 @@ const TYPES = {
     desc: "발로 뛰어 만난 고객님을 정으로 오래오래 챙겨요. 계약 이야기보다 안부 인사가 먼저인 스타일!",
     good: ["처음 본 고객님도 세 번째 만남엔 \"우리 설계사님\"", "해지율이 낮아요. 고객님이 미안해서 못 깨요", "우리 동네 상권 지도가 머릿속에 다 있어요"],
     caution: "정이 많아서 거절을 잘 못 하고, 계약 얘기 꺼낼 타이밍을 자주 놓쳐요.",
-    gift: { img: "img/rice.jpg", page: 3, name: "철원 오대쌀", why: "\"밥 한번 같이 먹어요\" 하는 마음을 그대로 담은 선물이에요. 받는 집 식탁에 오래 남아요." } },
+    gift: { img: "img/rice.jpg", page: 5, name: "철원 오대쌀", why: "\"밥 한번 같이 먹어요\" 하는 마음을 그대로 담은 선물이에요. 받는 집 식탁에 오래 남아요." } },
   PHK: { emoji: "🔥", color: "#E04A2F", name: "열정 불도저형", tag: "거절당한 다음 날, 웃으며 다시 가는 사람",
     desc: "에너지로 문을 열고 진심으로 마무리해요. 지점 분위기를 끌어올리는 엔진 같은 존재!",
     good: ["\"아니요\"를 \"아직이요\"로 듣는 회복력", "월말 막판 역전의 주인공", "신입들이 따라다니고 싶어 하는 선배"],
     caution: "속도가 빨라서 고객님이 숨 고를 틈이 없을 때가 있어요. 계약 후 관리도 꼭 챙겨주세요.",
-    gift: { img: "img/ginseng.jpg", page: 36, name: "정관장 홍삼비력", why: "내 에너지를 고객님께 그대로 나눠드리는 선물이에요. 바쁜 사장님 고객님께 특히 반응이 좋아요." } },
+    gift: { img: "img/ginseng.jpg", page: 35, name: "정관장 홍삼비력", why: "내 에너지를 고객님께 그대로 나눠드리는 선물이에요. 바쁜 사장님 고객님께 특히 반응이 좋아요." } },
   PDM: { emoji: "🗺️", color: "#2F8F7A", name: "지도 펼친 전략가형", tag: "동선과 일정이 엑셀 한 장에 다 있는 사람",
     desc: "개척도 계획대로! 구역을 나누고, 방문 주기를 정하고, 기록을 꼼꼼히 남기는 스타일이에요.",
     good: ["활동량이 매달 들쭉날쭉하지 않아요", "고객님 이력을 물으면 3초 안에 나와요", "효율 좋은 동선으로 하루 방문 수가 많아요"],
     caution: "계획에 없던 기회가 오면 살짝 머뭇거려요. 가끔은 즉흥도 실적이 돼요.",
-    gift: { img: "img/containers.jpg", page: 11, name: "담온 원형 찬통 3종", why: "실속을 아는 분이 고르는 실용 선물이에요. 냉장고 열 때마다 보여서 이름이 잊히지 않아요." } },
+    gift: { img: "img/zenk.jpg", page: 43, name: "젠크 스텐찬통 4종", why: "실속을 아는 분이 고르는 실용 선물이에요. 냉장고 열 때마다 보여서 이름이 잊히지 않아요." } },
   PDK: { emoji: "🎯", color: "#3E5BD8", name: "원샷 스나이퍼형", tag: "첫 상담에서 설계서로 끝내는 사람",
     desc: "준비된 숫자로 첫 만남에 승부를 봐요. 고객님이 \"이렇게까지 준비해오셨어요?\" 하게 만드는 스타일!",
     good: ["첫 미팅 계약 전환율이 높아요", "질문이 나오기 전에 답을 준비해둬요", "큰 계약 앞에서도 떨지 않아요"],
@@ -288,22 +251,22 @@ const TYPES = {
     desc: "고객님이 고객님을 데려와요. 사람 챙기는 게 곧 영업이 되는 소개 계약의 달인!",
     good: ["소개 계약 비율이 지점 최상위", "명절 시즌엔 연락이 먼저 와요", "고객님 가족 이름까지 다 알아요"],
     caution: "챙길 사람이 너무 많아서 정작 나를 못 챙겨요. 선물 예산도 미리 정해두세요.",
-    gift: { img: "img/nuts.jpg", page: 12, name: "햇살담은 견과세트", why: "\"늘 고마워요\" 한마디를 대신하는 정석 답례품이에요. 부담 없는 가격이라 여러 고객님께 돌리기 좋아요." } },
+    gift: { img: "img/gimjaban.jpg", page: 8, name: "광천 돌김자반 4종 세트", why: "\"늘 고마워요\" 한마디를 대신하는 부담 없는 답례품이에요. 여러 고객님께 두루 돌리기 좋아요." } },
   RHK: { emoji: "🎤", color: "#8B4FD6", name: "분위기 메이커형", tag: "모임에 가면 계약이 따라오는 사람",
     desc: "사람들 사이에서 빛나고, 그 자리에서 마무리까지 해요. 지점 회식 MC도 대개 이 유형!",
     good: ["모임 한 번에 가망고객이 여러 명 생겨요", "어색한 자리를 3분 만에 풀어요", "\"그 설계사님 재밌어\"로 소개가 돌아요"],
     caution: "말로 한 약속이 많아요. 계약 조건은 꼭 문서로 한 번 더 정리해주세요.",
-    gift: { img: "img/tumbler.jpg", page: 12, name: "라온까사 러뷰 피크닉 텀블러", why: "들고 다닐 때마다 내가 생각나는 선물이에요. 젊은 고객님, 모임 단체 선물로 인기 많아요." } },
+    gift: { img: "img/muffler.jpg", page: 10, name: "247 SEOUL 니트 머플러", why: "목에 두를 때마다 내가 생각나는 선물이에요. 모임 단체 선물로 분위기 내기 좋아요." } },
   RDM: { emoji: "📋", color: "#4A7A2E", name: "꼼꼼 집사형", tag: "고객님 보장 내역을 고객님보다 잘 아는 사람",
     desc: "소개받은 고객님을 빈틈없는 관리로 평생 고객으로 만들어요. 보험금 청구 도와달라는 연락이 제일 많은 유형!",
     good: ["청구, 서류 처리에서 신뢰가 쌓여요", "갱신, 만기 일정을 절대 안 놓쳐요", "민원이 거의 없어요"],
     caution: "완벽하게 준비될 때까지 기다리다가 타이밍을 놓칠 수 있어요.",
-    gift: { img: "img/blanket.jpg", page: 13, name: "극세사 밍크 이불담요", why: "고객님의 겨울까지 미리 챙기는 선물이에요. 받는 분이 \"역시 꼼꼼하시네\" 하실 거예요." } },
+    gift: { img: "img/blanket.jpg", page: 9, name: "극세사 밍크 이불담요", why: "고객님의 겨울까지 미리 챙기는 선물이에요. 받는 분이 \"역시 꼼꼼하시네\" 하실 거예요." } },
   RDK: { emoji: "💼", color: "#2B4C6F", name: "신뢰 컨설턴트형", tag: "\"그분이 하라면 해\"의 주인공",
     desc: "숫자와 근거로 신뢰를 쌓고, 소개받은 자리에서 확실하게 결정을 이끌어요. 고액 계약이 잘 나오는 유형!",
     good: ["법인, 자산가 고객님께 강해요", "고객님이 다른 데 설계안을 들고 와서 물어봐요", "결정을 미루는 고객님도 부드럽게 정리해요"],
     caution: "가끔 너무 단호해 보일 수 있어요. 숫자 사이에 따뜻한 한마디를 섞어주세요.",
-    gift: { img: "img/jerky.jpg", page: 34, name: "호주산 소고기 치즈육포", why: "격을 갖춘 고급 선물이에요. 법인 대표님, VIP 고객님 인사용으로 많이 찾으세요." } },
+    gift: { img: "img/olive.jpg", page: 36, name: "올리타리아 특선 2-1호", why: "올리브유와 발사믹을 담은 격 있는 선물이에요. 법인 대표님, VIP 고객님 인사용으로 좋아요." } },
 };
 
 const app = document.getElementById("app");
@@ -316,19 +279,13 @@ function renderIntro() {
     <section class="card hero">
       <div class="kicker">우리 지점 조회 시간 2분 이벤트</div>
       <h1>나는 어떤<br><span>영업 스타일</span>일까?</h1>
-      <p>영업 현장에서 한 번쯤 겪어본 12가지 상황에 답해보세요. 나의 영업 유형과 함께 일하면 찰떡인 동료, 티격태격하는 동료까지 알려드려요.</p>
+      <p>12가지 영업 상황에 A, B로 답하면 끝! 나와 찰떡인 동료까지 알려드려요.</p>
+      <button class="btn big" id="start">2분 테스트 시작하기 ▶</button>
       <div class="emoji-row" aria-hidden="true">${Object.values(TYPES).map(t => `<span>${t.emoji}</span>`).join("")}</div>
       <div class="chips"><span>12문항</span><span>8가지 유형</span><span>찰떡·상극 동료</span></div>
-      <div class="field">
-        <label for="nm">이름 (결과 화면에 나와요, 안 써도 돼요)</label>
-        <input id="nm" maxlength="10" placeholder="예: 김보험" value="${esc(state.name)}">
-        <p class="note">이름을 쓰시면 참여 기록과 함께 누구나기프트에 저장돼요.</p>
-      </div>
-      <button class="btn" id="start">테스트 시작하기</button>
     </section>
     ${promoHTML()}`;
   document.getElementById("start").onclick = () => {
-    state.name = document.getElementById("nm").value.trim();
     log("테스트 시작");
     state.step = 0; state.picks = [];
     renderQuestion();
@@ -416,11 +373,30 @@ function renderResult() {
   };
   app.innerHTML = `
     <section class="card result-hero">
-      <p class="who">${who}의 영업 스타일은</p>
+      <p class="who" id="who">${who}의 영업 스타일은</p>
       <div class="big-emoji pop" aria-hidden="true">${T.emoji}</div>
       <h1>${T.name}</h1>
       <p class="tag">${T.tag}</p>
     </section>
+    <form class="name-box" id="nameForm">
+      <label for="nm">이름을 넣으면 "○○님의 영업 스타일"로 바뀌어요</label>
+      <div class="name-row">
+        <input id="nm" maxlength="10" placeholder="예: 김보험" value="${esc(state.name)}">
+        <button class="btn sub" type="submit">넣기</button>
+      </div>
+      <p class="note">이름을 넣으면 참여 기록과 함께 누구나기프트에 저장돼요.</p>
+    </form>
+    <a class="card gift" href="${catalogLink(T.gift.page)}" target="_blank" rel="noopener" data-page="${T.gift.page}" aria-label="${T.gift.name} 카탈로그 ${T.gift.page}쪽 보기">
+      <span class="g-lbl">🎁 ${T.name}에게 추천하는 고객 선물</span>
+      <div class="g-body">
+        <img class="g-img" src="${T.gift.img}" alt="${T.gift.name} 상품 사진" width="400" height="400">
+        <div class="g-text">
+          <span class="g-name">${T.gift.name}</span>
+          <p>${T.gift.why}</p>
+        </div>
+      </div>
+      <span class="g-more">카탈로그 ${T.gift.page}쪽에서 보기 ›</span>
+    </a>
     <section class="card">
       <p>${T.desc}</p>
       <div class="axes">${s.map((r, ax) => axisRow(ax, r)).join("")}</div>
@@ -443,17 +419,6 @@ function renderResult() {
       <span class="m-name">${worst.name}</span>
       <p>${worstWhy(code)}</p>
     </section>
-    <button class="card gift" data-page="${T.gift.page}" aria-label="${T.gift.name} 카탈로그 ${T.gift.page}쪽 보기">
-      <span class="g-lbl">🎁 ${T.name}에게 어울리는 고객 선물</span>
-      <div class="g-body">
-        <img class="g-img" src="${T.gift.img}" alt="${T.gift.name} 상품 사진" width="400" height="400">
-        <div class="g-text">
-          <span class="g-name">${T.gift.name}</span>
-          <p>${T.gift.why}</p>
-        </div>
-      </div>
-      <span class="g-more">카탈로그 ${T.gift.page}쪽에서 보기 ›</span>
-    </button>
     <p class="maker">누구나기프트와 함께 만든 테스트예요</p>
     <p class="share-hint">📸 결과를 캡처해서 지점 단톡방에 올려보세요!</p>
     <div class="actions">
@@ -465,11 +430,20 @@ function renderResult() {
       <div class="all-list">${Object.entries(TYPES).map(([k, t]) => `<div><b>${t.emoji} ${t.name}${k === code ? " (나)" : ""}</b><span>${t.tag}</span></div>`).join("")}</div>
     </details>
     ${promoHTML()}`;
-  const shareText = `${state.name ? state.name + "님" : "나"}의 영업 스타일은 ${T.emoji} ${T.name}!\n"${T.tag}"\n\n찰떡 동료: ${best.emoji} ${best.name}\n상극 동료: ${worst.emoji} ${worst.name}\n\n우리 지점에 ${best.name} 누구예요? 🙋`;
+  const shareText = () => `${state.name ? state.name + "님" : "나"}의 영업 스타일은 ${T.emoji} ${T.name}!\n"${T.tag}"\n\n찰떡 동료: ${best.emoji} ${best.name}\n상극 동료: ${worst.emoji} ${worst.name}\n\n우리 지점에 ${best.name} 누구예요? 🙋`;
+  document.getElementById("nameForm").onsubmit = e => {
+    e.preventDefault();
+    const v = document.getElementById("nm").value.trim();
+    if (!v) return;
+    state.name = v;
+    document.getElementById("who").textContent = `${v}님의 영업 스타일은`;
+    log("이름 입력", { type: T.name });
+    document.getElementById("nm").blur();
+  };
   document.getElementById("copy").onclick = async () => {
     const t = document.getElementById("toast");
     log("결과 복사", { type: T.name });
-    try { await navigator.clipboard.writeText(shareText); t.textContent = "복사됐어요! 단톡방에 붙여넣어 보세요."; }
+    try { await navigator.clipboard.writeText(shareText()); t.textContent = "복사됐어요! 단톡방에 붙여넣어 보세요."; }
     catch (e) { t.textContent = "이 화면에선 복사가 안 돼요. 캡처로 공유해주세요."; }
   };
   document.getElementById("again").onclick = () => {
@@ -484,8 +458,8 @@ function promoHTML() {
   return `<section class="promo">
     <h4>고객님 선물, 고민될 땐 누구나기프트</h4>
     <p>보험 지점 고객 선물부터 명절·행사 답례품, 단체 선물까지. 1박스부터 지점으로 바로 보내드려요.</p>
-    <button class="btn catalog" data-page="${CATALOG_TOC}">이번 달 선물 카탈로그 보기</button>
-    <a class="btn pdf pdf-link">📥 카탈로그 PDF 저장 (${CATALOG_PDF_SIZE})</a>
+    <a class="btn catalog" href="${catalogLink(CATALOG_TOC)}" target="_blank" rel="noopener" data-page="${CATALOG_TOC}">이번 달 선물 카탈로그 보기</a>
+    <a class="btn pdf pdf-link" href="${CATALOG_PDF}" target="_blank" rel="noopener">📥 카탈로그 PDF 저장 (${CATALOG_PDF_SIZE})</a>
     <p>주문·문의 <span class="tel">${PHONE}</span></p>
   </section>`;
 }
@@ -494,67 +468,10 @@ app.addEventListener("click", e => {
   const b = e.target.closest("[data-page]");
   if (!b) return;
   log(b.classList.contains("gift") ? "선물 카드 클릭" : "카탈로그 버튼", { page: +b.dataset.page, item: giftOnPage(+b.dataset.page) });
-  openCatalog(+b.dataset.page);
 });
-
-// ── 카탈로그 뷰어 ──
-const V = document.getElementById("viewer");
-const vImg = document.getElementById("v-img"), vScroll = document.getElementById("v-scroll");
-let vPage = 1, vZoom = false, lastFocus = null;
-function showPage(n) {
-  vPage = Math.min(Math.max(n, 1), CATALOG_PAGES);
-  vImg.src = pageSrc(vPage);
-  vImg.alt = `${CATALOG_NAME} ${vPage}쪽`;
-  document.getElementById("v-num").textContent = `${vPage} / ${CATALOG_PAGES}`;
-  document.getElementById("v-prev").disabled = vPage === 1;
-  document.getElementById("v-next").disabled = vPage === CATALOG_PAGES;
-  vScroll.scrollTo(0, 0);
-  [vPage - 1, vPage + 1].forEach(k => { if (k >= 1 && k <= CATALOG_PAGES) new Image().src = pageSrc(k); });
-  // 같은 방문에서 같은 쪽은 한 번만 기록
-  if (!loggedPages.has(vPage)) { loggedPages.add(vPage); log("카탈로그 열람", { page: vPage, item: giftOnPage(vPage) }); }
-}
+app.addEventListener("click", e => { if (e.target.closest(".pdf-link")) log("PDF 저장"); });
 function giftOnPage(n) { return Object.values(TYPES).filter(t => t.gift.page === n).map(t => t.gift.name).join(", "); }
-function setZoom(z) { vZoom = z; V.classList.toggle("zoomed", z); document.getElementById("v-zoom").textContent = z ? "축소" : "확대"; }
-function openCatalog(n) {
-  lastFocus = document.activeElement;
-  setZoom(false); showPage(n);
-  V.hidden = false; document.body.style.overflow = "hidden";
-  document.getElementById("v-close").focus();
-}
-function closeCatalog() { V.hidden = true; document.body.style.overflow = ""; lastFocus?.focus(); }
-document.getElementById("v-close").onclick = closeCatalog;
-document.getElementById("v-prev").onclick = () => showPage(vPage - 1);
-document.getElementById("v-next").onclick = () => showPage(vPage + 1);
-document.getElementById("v-toc").onclick = () => showPage(CATALOG_TOC);
-document.getElementById("v-zoom").onclick = () => setZoom(!vZoom);
-vImg.addEventListener("dblclick", () => setZoom(!vZoom));
-document.addEventListener("keydown", e => {
-  if (V.hidden) return;
-  if (e.key === "Escape") closeCatalog();
-  if (e.key === "ArrowLeft") showPage(vPage - 1);
-  if (e.key === "ArrowRight") showPage(vPage + 1);
-});
-let tx = null, ty = null;
-vScroll.addEventListener("touchstart", e => { if (e.touches.length === 1) { tx = e.touches[0].clientX; ty = e.touches[0].clientY; } else tx = null; }, { passive: true });
-vScroll.addEventListener("touchend", e => {
-  if (tx === null || vZoom) return;
-  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
-  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) showPage(vPage + (dx < 0 ? 1 : -1));
-  tx = null;
-});
-document.getElementById("v-title").textContent = CATALOG_NAME;
-document.getElementById("v-tel").textContent = PHONE;
 
-// PDF 저장 링크: 주소·파일명 채우고, 누르면 기록
-document.addEventListener("click", e => {
-  const a = e.target.closest(".pdf-link");
-  if (a) log("PDF 저장", { page: V.hidden ? "" : vPage });
-});
-function fillPdfLinks() {
-  document.querySelectorAll(".pdf-link").forEach(a => { a.href = CATALOG_PDF; a.download = CATALOG_PDF_NAME; });
-}
-new MutationObserver(fillPdfLinks).observe(app, { childList: true });
-fillPdfLinks();
 
 renderIntro();
 log("입장");
