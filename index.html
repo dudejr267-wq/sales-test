@@ -77,12 +77,6 @@ p { margin: 0; }
   border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 17px;
 }
 .btn.big { font-size: 19px; padding: 18px; }
-.name-box { display: flex; flex-direction: column; gap: 6px; background: var(--card); border-radius: 20px; padding: 16px 18px; }
-.name-box label { font-size: 13px; color: var(--muted); }
-.name-row { display: flex; gap: 8px; }
-.name-row input { flex: 1; min-width: 0; font: inherit; padding: 11px 13px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
-.name-row .btn.sub { width: auto; padding: 11px 16px; }
-.name-box .note { font-size: 12px; color: var(--muted); margin: 0; }
 .btn.sub { background: var(--card); color: var(--ink); border: 1px solid var(--line); font-weight: 500; font-size: 15px; padding: 13px; }
 
 /* 질문 */
@@ -378,14 +372,6 @@ function renderResult() {
       <h1>${T.name}</h1>
       <p class="tag">${T.tag}</p>
     </section>
-    <form class="name-box" id="nameForm">
-      <label for="nm">이름을 넣으면 "○○님의 영업 스타일"로 바뀌어요</label>
-      <div class="name-row">
-        <input id="nm" maxlength="10" placeholder="예: 김보험" value="${esc(state.name)}">
-        <button class="btn sub" type="submit">넣기</button>
-      </div>
-      <p class="note">이름을 넣으면 참여 기록과 함께 누구나기프트에 저장돼요.</p>
-    </form>
     <a class="card gift" href="${catalogLink(T.gift.page)}" target="_blank" rel="noopener" data-page="${T.gift.page}" aria-label="${T.gift.name} 카탈로그 ${T.gift.no}쪽 보기">
       <span class="g-lbl">🎁 ${T.name}에게 추천하는 고객 선물</span>
       <div class="g-body">
@@ -431,15 +417,6 @@ function renderResult() {
     </details>
     ${promoHTML()}`;
   const shareText = () => `${state.name ? state.name + "님" : "나"}의 영업 스타일은 ${T.emoji} ${T.name}!\n"${T.tag}"\n\n찰떡 동료: ${best.emoji} ${best.name}\n상극 동료: ${worst.emoji} ${worst.name}\n\n우리 지점에 ${best.name} 누구예요? 🙋`;
-  document.getElementById("nameForm").onsubmit = e => {
-    e.preventDefault();
-    const v = document.getElementById("nm").value.trim();
-    if (!v) return;
-    state.name = v;
-    document.getElementById("who").textContent = `${v}님의 영업 스타일은`;
-    log("이름 입력", { type: T.name });
-    document.getElementById("nm").blur();
-  };
   document.getElementById("copy").onclick = async () => {
     const t = document.getElementById("toast");
     log("결과 복사", { type: T.name });
