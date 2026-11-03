@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>나는 어떤 영업 스타일일까?</title>
-<meta name="description" content="영업 현장 12가지 상황으로 알아보는 나의 영업 유형. 찰떡 동료, 상극 동료까지! 2분이면 끝나요.">
+<meta name="description" content="영업 현장 9가지 상황으로 알아보는 나의 영업 유형. 찰떡 동료, 상극 동료까지! 2분이면 끝나요.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="나는 어떤 영업 스타일일까?">
-<meta property="og:description" content="영업 현장 12가지 상황으로 알아보는 나의 영업 유형. 찰떡 동료, 상극 동료까지! 2분이면 끝나요.">
+<meta property="og:description" content="영업 현장 9가지 상황으로 알아보는 나의 영업 유형. 찰떡 동료, 상극 동료까지! 2분이면 끝나요.">
 <meta property="og:image" content="https://dudejr267-wq.github.io/sales-test/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -143,6 +143,10 @@ p { margin: 0; }
 .gift .g-name { font-family: var(--f-display); font-weight: 400; font-size: 21px; line-height: 1.25; }
 .gift p { font-size: 14px; color: var(--muted); }
 .gift .g-more { align-self: flex-end; font-size: 14px; font-weight: 700; color: var(--gift); }
+.quote { display: flex; flex-direction: column; align-items: center; gap: 2px; text-decoration: none; background: var(--gift); color: #fff; border-radius: 16px; padding: 14px; margin-top: -4px; }
+.quote .q-main { font-weight: 700; font-size: 16px; }
+.quote .q-sub { font-size: 12px; opacity: .9; font-variant-numeric: tabular-nums; }
+.btn.share { background: #FEE500; color: #191600; }
 .maker { text-align: center; font-size: 12px; color: var(--muted); }
 .share-hint { text-align: center; font-size: 14px; color: var(--muted); }
 .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -181,6 +185,9 @@ const CATALOG_PDF = "https://cdnm.heyzine.com/files/uploaded/fade5a246194c7a0fc2
 const CATALOG_PDF_SIZE = "11MB";
 const CATALOG_TOC = 2;   // 목차 쪽
 const PHONE = "031-305-4554";
+const QUOTE_PHONE = "010-8827-3316";   // 견적 문의 문자 받는 번호 (이영덕)
+const SHARE_URL = "https://dudejr267-wq.github.io/sales-test/?from=공유";
+const quoteSms = item => `sms:${QUOTE_PHONE.replace(/-/g, "")}?&body=${encodeURIComponent(`[영업스타일 테스트] ${item} 견적 문의드려요.\n지점명: \n수량: `)}`;
 const catalogLink = n => `${CATALOG_URL}#page/${n}`;   // 링크는 PDF 쪽(page), 화면 표시는 인쇄된 쪽번호(no) — 표지·목차 때문에 2~3쪽 차이
 
 // ── 방문 기록 (이름 없이) → 구글 시트 "영업스타일테스트 로그" ──
@@ -210,11 +217,8 @@ const QUESTIONS = [
   { axis: 2, e: "🤔", q: "고객님이 \"한번 생각해볼게요\" 하셨어요.", a: "다음 주에 안부 문자부터 보내요", b: "\"어떤 부분이 걸리세요? 지금 같이 보실까요?\"" },
   { axis: 0, e: "🎪", q: "아는 사람이 거의 없는 행사장에 갔어요.", a: "먼저 다가가서 인사하고 명함을 나눠요", b: "아는 분 옆에 붙어서 자연스럽게 소개받아요" },
   { axis: 1, e: "🌙", q: "상담 전날 밤, 내가 챙기는 건?", a: "고객님 근황, 가족 이야기, 지난번 대화 메모", b: "보장분석표랑 비교 설계안 3개" },
-  { axis: 2, e: "📅", q: "내 휴대폰 캘린더를 열어보면?", a: "고객님 생일, 결혼기념일로 빼곡해요", b: "이번 주 청약 일정이 제일 크게 적혀 있어요" },
-  { axis: 0, e: "🏆", q: "제일 뿌듯했던 계약을 떠올려보면?", a: "처음 만난 분이 제 설명을 듣고 바로 믿어주신 계약", b: "고객님이 가족, 지인까지 줄줄이 소개해주신 계약" },
-  { axis: 1, e: "😮‍💨", q: "옆자리 동료가 요즘 실적 때문에 힘들어해요.", a: "커피 한 잔 사주면서 이야기를 들어줘요", b: "지난달 활동량을 같이 뽑아보고 원인을 찾아줘요" },
   { axis: 2, e: "⏰", q: "월말 마감 3일 전이에요.", a: "평소처럼 해요. 꾸준히 해둔 게 들어오거든요", b: "지금이 내 무대! 전화 돌리기 시작해요" },
-  { axis: 0, e: "🛒", q: "주말에 마트에서 장을 보다가…", a: "옆에서 고민하는 분께 자연스럽게 말을 걸어봐요", b: "장만 봐요. 대신 아는 고객님 만나면 30분 수다" },
+  { axis: 0, e: "🏆", q: "제일 뿌듯했던 계약을 떠올려보면?", a: "처음 만난 분이 제 설명을 듣고 바로 믿어주신 계약", b: "고객님이 가족, 지인까지 줄줄이 소개해주신 계약" },
   { axis: 1, e: "⚖️", q: "고객님이 다른 회사 상품이랑 비교해달래요.", a: "\"저 믿고 맡겨주신 거잖아요\" 신뢰로 설명해요", b: "항목별로 표 만들어서 장단점을 다 보여드려요" },
   { axis: 2, e: "🗓️", q: "계약하고 1년 동안 그 고객님과 나는?", a: "명절, 생일마다 꼭 연락드리며 챙겨요", b: "연락은 가끔이어도 필요할 때 확실히 도와드려요" },
 ];
@@ -273,10 +277,10 @@ function renderIntro() {
     <section class="card hero">
       <div class="kicker">우리 지점 조회 시간 2분 이벤트</div>
       <h1>나는 어떤<br><span>영업 스타일</span>일까?</h1>
-      <p>12가지 영업 상황에 A, B로 답하면 끝! 나와 찰떡인 동료까지 알려드려요.</p>
+      <p>9가지 영업 상황에 A, B로 답하면 끝! 나와 찰떡인 동료까지 알려드려요.</p>
       <button class="btn big" id="start">2분 테스트 시작하기 ▶</button>
       <div class="emoji-row" aria-hidden="true">${Object.values(TYPES).map(t => `<span>${t.emoji}</span>`).join("")}</div>
-      <div class="chips"><span>12문항</span><span>8가지 유형</span><span>찰떡·상극 동료</span></div>
+      <div class="chips"><span>9문항</span><span>8가지 유형</span><span>찰떡·상극 동료</span></div>
     </section>
     ${promoHTML()}`;
   document.getElementById("start").onclick = () => {
@@ -318,7 +322,7 @@ function renderQuestion() {
 }
 
 function score() {
-  // 축마다 A 선택 비율. 2:2 동점이면 그 축 첫 질문의 답을 따라요
+  // 축마다 A 선택 비율 (축당 3문항이라 동점 없음)
   return AXES.map((_, ax) => {
     const idx = QUESTIONS.map((q, k) => q.axis === ax ? k : -1).filter(k => k >= 0);
     const ratio = idx.filter(k => state.picks[k] === "a").length / idx.length;
@@ -383,6 +387,10 @@ function renderResult() {
       </div>
       <span class="g-more">카탈로그 ${T.gift.no}쪽에서 보기 ›</span>
     </a>
+    <a class="quote" id="quote" href="${quoteSms(T.gift.name)}">
+      <span class="q-main">💬 이 선물 견적 문의하기</span>
+      <span class="q-sub">문자로 바로 보내요 · ${QUOTE_PHONE}</span>
+    </a>
     <section class="card">
       <p>${T.desc}</p>
       <div class="axes">${s.map((r, ax) => axisRow(ax, r)).join("")}</div>
@@ -406,7 +414,7 @@ function renderResult() {
       <p>${worstWhy(code)}</p>
     </section>
     <p class="maker">누구나기프트와 함께 만든 테스트예요</p>
-    <p class="share-hint">📸 결과를 캡처해서 지점 단톡방에 올려보세요!</p>
+    <button class="btn share" id="share">📤 카톡으로 결과 공유하기</button>
     <div class="actions">
       <button class="btn sub" id="copy">결과 문구 복사</button>
       <button class="btn sub" id="again">다시 해보기</button>
@@ -416,7 +424,21 @@ function renderResult() {
       <div class="all-list">${Object.entries(TYPES).map(([k, t]) => `<div><b>${t.emoji} ${t.name}${k === code ? " (나)" : ""}</b><span>${t.tag}</span></div>`).join("")}</div>
     </details>
     ${promoHTML()}`;
-  const shareText = () => `${state.name ? state.name + "님" : "나"}의 영업 스타일은 ${T.emoji} ${T.name}!\n"${T.tag}"\n\n찰떡 동료: ${best.emoji} ${best.name}\n상극 동료: ${worst.emoji} ${worst.name}\n\n우리 지점에 ${best.name} 누구예요? 🙋`;
+  const shareText = () => `${state.name ? state.name + "님" : "나"}의 영업 스타일은 ${T.emoji} ${T.name}!\n"${T.tag}"\n\n찰떡 동료: ${best.emoji} ${best.name}\n상극 동료: ${worst.emoji} ${worst.name}\n\n우리 지점에 ${best.name} 누구예요? 🙋\n👉 나도 해보기: ${SHARE_URL}`;
+  document.getElementById("quote").addEventListener("click", () => log("견적 문의", { type: T.name, page: T.gift.page, item: T.gift.name }));
+  document.getElementById("share").onclick = async () => {
+    const t = document.getElementById("toast");
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: "나는 어떤 영업 스타일일까?", text: shareText().replace(`\n👉 나도 해보기: ${SHARE_URL}`, ""), url: SHARE_URL });
+        log("결과 공유", { type: T.name });
+        return;
+      } catch (e) { if (e && e.name === "AbortError") return; }
+    }
+    log("결과 복사", { type: T.name });
+    try { await navigator.clipboard.writeText(shareText()); t.textContent = "복사됐어요! 카톡 단톡방에 붙여넣어 보세요."; }
+    catch (e) { t.textContent = "이 화면에선 공유가 안 돼요. 캡처로 공유해주세요."; }
+  };
   document.getElementById("copy").onclick = async () => {
     const t = document.getElementById("toast");
     log("결과 복사", { type: T.name });
