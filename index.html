@@ -187,7 +187,7 @@ const CATALOG_PDF = "https://cdnm.heyzine.com/files/uploaded/fade5a246194c7a0fc2
 const CATALOG_PDF_SIZE = "11MB";
 const CATALOG_TOC = 2;   // 목차 쪽
 const PHONE = "031-305-4554";
-const catalogLink = n => `${CATALOG_URL}#page/${n}`;   // 플립북 쪽 번호 = PDF 쪽 번호
+const catalogLink = n => `${CATALOG_URL}#page/${n}`;   // 링크는 PDF 쪽(page), 화면 표시는 인쇄된 쪽번호(no) — 표지·목차 때문에 2~3쪽 차이
 
 // ── 방문 기록 (이름 없이) → 구글 시트 "영업스타일테스트 로그" ──
 // LOG_URL이 비어 있으면 아무것도 보내지 않아요 (미리보기용)
@@ -231,42 +231,42 @@ const TYPES = {
     desc: "발로 뛰어 만난 고객님을 정으로 오래오래 챙겨요. 계약 이야기보다 안부 인사가 먼저인 스타일!",
     good: ["처음 본 고객님도 세 번째 만남엔 \"우리 설계사님\"", "해지율이 낮아요. 고객님이 미안해서 못 깨요", "우리 동네 상권 지도가 머릿속에 다 있어요"],
     caution: "정이 많아서 거절을 잘 못 하고, 계약 얘기 꺼낼 타이밍을 자주 놓쳐요.",
-    gift: { img: "img/rice.jpg", page: 5, name: "철원 오대쌀", why: "\"밥 한번 같이 먹어요\" 하는 마음을 그대로 담은 선물이에요. 받는 집 식탁에 오래 남아요." } },
+    gift: { img: "img/rice.jpg", page: 5, no: 3, name: "철원 오대쌀", why: "\"밥 한번 같이 먹어요\" 하는 마음을 그대로 담은 선물이에요. 받는 집 식탁에 오래 남아요." } },
   PHK: { emoji: "🔥", color: "#E04A2F", name: "열정 불도저형", tag: "거절당한 다음 날, 웃으며 다시 가는 사람",
     desc: "에너지로 문을 열고 진심으로 마무리해요. 지점 분위기를 끌어올리는 엔진 같은 존재!",
     good: ["\"아니요\"를 \"아직이요\"로 듣는 회복력", "월말 막판 역전의 주인공", "신입들이 따라다니고 싶어 하는 선배"],
     caution: "속도가 빨라서 고객님이 숨 고를 틈이 없을 때가 있어요. 계약 후 관리도 꼭 챙겨주세요.",
-    gift: { img: "img/ginseng.jpg", page: 35, name: "정관장 홍삼비력", why: "내 에너지를 고객님께 그대로 나눠드리는 선물이에요. 바쁜 사장님 고객님께 특히 반응이 좋아요." } },
+    gift: { img: "img/ginseng.jpg", page: 35, no: 32, name: "정관장 홍삼비력", why: "내 에너지를 고객님께 그대로 나눠드리는 선물이에요. 바쁜 사장님 고객님께 특히 반응이 좋아요." } },
   PDM: { emoji: "🗺️", color: "#2F8F7A", name: "지도 펼친 전략가형", tag: "동선과 일정이 엑셀 한 장에 다 있는 사람",
     desc: "개척도 계획대로! 구역을 나누고, 방문 주기를 정하고, 기록을 꼼꼼히 남기는 스타일이에요.",
     good: ["활동량이 매달 들쭉날쭉하지 않아요", "고객님 이력을 물으면 3초 안에 나와요", "효율 좋은 동선으로 하루 방문 수가 많아요"],
     caution: "계획에 없던 기회가 오면 살짝 머뭇거려요. 가끔은 즉흥도 실적이 돼요.",
-    gift: { img: "img/zenk.jpg", page: 43, name: "젠크 스텐찬통 4종", why: "실속을 아는 분이 고르는 실용 선물이에요. 냉장고 열 때마다 보여서 이름이 잊히지 않아요." } },
+    gift: { img: "img/zenk.jpg", page: 43, no: 40, name: "젠크 스텐찬통 4종", why: "실속을 아는 분이 고르는 실용 선물이에요. 냉장고 열 때마다 보여서 이름이 잊히지 않아요." } },
   PDK: { emoji: "🎯", color: "#3E5BD8", name: "원샷 스나이퍼형", tag: "첫 상담에서 설계서로 끝내는 사람",
     desc: "준비된 숫자로 첫 만남에 승부를 봐요. 고객님이 \"이렇게까지 준비해오셨어요?\" 하게 만드는 스타일!",
     good: ["첫 미팅 계약 전환율이 높아요", "질문이 나오기 전에 답을 준비해둬요", "큰 계약 앞에서도 떨지 않아요"],
     caution: "계약 후엔 연락이 뜸해지기 쉬워요. 다음 소개는 관리에서 나온답니다.",
-    gift: { img: "img/moodlamp.jpg", page: 43, name: "듀플렉스 보름달 무드등 가습기", why: "첫인상 한 방이 필요한 자리에 딱이에요. 포장 열자마자 \"오, 센스 있다\"가 나와요." } },
+    gift: { img: "img/moodlamp.jpg", page: 43, no: 40, name: "듀플렉스 보름달 무드등 가습기", why: "첫인상 한 방이 필요한 자리에 딱이에요. 포장 열자마자 \"오, 센스 있다\"가 나와요." } },
   RHM: { emoji: "🤝", color: "#D2457A", name: "인맥 부자 다정형", tag: "경조사 달력이 제일 빽빽한 사람",
     desc: "고객님이 고객님을 데려와요. 사람 챙기는 게 곧 영업이 되는 소개 계약의 달인!",
     good: ["소개 계약 비율이 지점 최상위", "명절 시즌엔 연락이 먼저 와요", "고객님 가족 이름까지 다 알아요"],
     caution: "챙길 사람이 너무 많아서 정작 나를 못 챙겨요. 선물 예산도 미리 정해두세요.",
-    gift: { img: "img/gimjaban.jpg", page: 8, name: "광천 돌김자반 4종 세트", why: "\"늘 고마워요\" 한마디를 대신하는 부담 없는 답례품이에요. 여러 고객님께 두루 돌리기 좋아요." } },
+    gift: { img: "img/gimjaban.jpg", page: 8, no: 6, name: "광천 돌김자반 4종 세트", why: "\"늘 고마워요\" 한마디를 대신하는 부담 없는 답례품이에요. 여러 고객님께 두루 돌리기 좋아요." } },
   RHK: { emoji: "🎤", color: "#8B4FD6", name: "분위기 메이커형", tag: "모임에 가면 계약이 따라오는 사람",
     desc: "사람들 사이에서 빛나고, 그 자리에서 마무리까지 해요. 지점 회식 MC도 대개 이 유형!",
     good: ["모임 한 번에 가망고객이 여러 명 생겨요", "어색한 자리를 3분 만에 풀어요", "\"그 설계사님 재밌어\"로 소개가 돌아요"],
     caution: "말로 한 약속이 많아요. 계약 조건은 꼭 문서로 한 번 더 정리해주세요.",
-    gift: { img: "img/muffler.jpg", page: 10, name: "247 SEOUL 니트 머플러", why: "목에 두를 때마다 내가 생각나는 선물이에요. 모임 단체 선물로 분위기 내기 좋아요." } },
+    gift: { img: "img/muffler.jpg", page: 10, no: 8, name: "247 SEOUL 니트 머플러", why: "목에 두를 때마다 내가 생각나는 선물이에요. 모임 단체 선물로 분위기 내기 좋아요." } },
   RDM: { emoji: "📋", color: "#4A7A2E", name: "꼼꼼 집사형", tag: "고객님 보장 내역을 고객님보다 잘 아는 사람",
     desc: "소개받은 고객님을 빈틈없는 관리로 평생 고객으로 만들어요. 보험금 청구 도와달라는 연락이 제일 많은 유형!",
     good: ["청구, 서류 처리에서 신뢰가 쌓여요", "갱신, 만기 일정을 절대 안 놓쳐요", "민원이 거의 없어요"],
     caution: "완벽하게 준비될 때까지 기다리다가 타이밍을 놓칠 수 있어요.",
-    gift: { img: "img/blanket.jpg", page: 9, name: "극세사 밍크 이불담요", why: "고객님의 겨울까지 미리 챙기는 선물이에요. 받는 분이 \"역시 꼼꼼하시네\" 하실 거예요." } },
+    gift: { img: "img/blanket.jpg", page: 9, no: 7, name: "극세사 밍크 이불담요", why: "고객님의 겨울까지 미리 챙기는 선물이에요. 받는 분이 \"역시 꼼꼼하시네\" 하실 거예요." } },
   RDK: { emoji: "💼", color: "#2B4C6F", name: "신뢰 컨설턴트형", tag: "\"그분이 하라면 해\"의 주인공",
     desc: "숫자와 근거로 신뢰를 쌓고, 소개받은 자리에서 확실하게 결정을 이끌어요. 고액 계약이 잘 나오는 유형!",
     good: ["법인, 자산가 고객님께 강해요", "고객님이 다른 데 설계안을 들고 와서 물어봐요", "결정을 미루는 고객님도 부드럽게 정리해요"],
     caution: "가끔 너무 단호해 보일 수 있어요. 숫자 사이에 따뜻한 한마디를 섞어주세요.",
-    gift: { img: "img/olive.jpg", page: 36, name: "올리타리아 특선 2-1호", why: "올리브유와 발사믹을 담은 격 있는 선물이에요. 법인 대표님, VIP 고객님 인사용으로 좋아요." } },
+    gift: { img: "img/olive.jpg", page: 36, no: 33, name: "올리타리아 특선 2-1호", why: "올리브유와 발사믹을 담은 격 있는 선물이에요. 법인 대표님, VIP 고객님 인사용으로 좋아요." } },
 };
 
 const app = document.getElementById("app");
@@ -386,7 +386,7 @@ function renderResult() {
       </div>
       <p class="note">이름을 넣으면 참여 기록과 함께 누구나기프트에 저장돼요.</p>
     </form>
-    <a class="card gift" href="${catalogLink(T.gift.page)}" target="_blank" rel="noopener" data-page="${T.gift.page}" aria-label="${T.gift.name} 카탈로그 ${T.gift.page}쪽 보기">
+    <a class="card gift" href="${catalogLink(T.gift.page)}" target="_blank" rel="noopener" data-page="${T.gift.page}" aria-label="${T.gift.name} 카탈로그 ${T.gift.no}쪽 보기">
       <span class="g-lbl">🎁 ${T.name}에게 추천하는 고객 선물</span>
       <div class="g-body">
         <img class="g-img" src="${T.gift.img}" alt="${T.gift.name} 상품 사진" width="400" height="400">
@@ -395,7 +395,7 @@ function renderResult() {
           <p>${T.gift.why}</p>
         </div>
       </div>
-      <span class="g-more">카탈로그 ${T.gift.page}쪽에서 보기 ›</span>
+      <span class="g-more">카탈로그 ${T.gift.no}쪽에서 보기 ›</span>
     </a>
     <section class="card">
       <p>${T.desc}</p>
